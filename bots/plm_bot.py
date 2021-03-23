@@ -32,11 +32,11 @@ class PLMBot(TeamsActivityHandler):
         return
 
     # Default reply to the user to send another message
-    async _default_reply(self, turn_context: TurnContext):
+    async def _default_reply(self, turn_context: TurnContext):
         reply_activity = MessageFactory.text("Sorry I didn't catch that. Try another request!")
         await turn_context.send_activity(reply_activity)
 
     # Handles a basic reply to the user
-    async _cool_reply(self, turn_context: TurnContext):
+    async def _cool_reply(self, turn_context: TurnContext):
         reply_activity = MessageFactory.text("Sup nerd")
         await turn_context.send_activity(reply_activity)
