@@ -3,24 +3,24 @@
     "manifestVersion": "1.5",
     "version": "1.0.0",
     "id": "bab29103-1fe0-4da3-9614-d214443706c2",
-    "packageName": "com.teams.sample.teamsconversationbot",
+    "packageName": "com.thatoldchap.plmbot",
     "developer": {
-      "name": "teamsConversationBot",
-      "websiteUrl": "https://www.microsoft.com",
-      "privacyUrl": "https://www.teams.com/privacy",
-      "termsOfUseUrl": "https://www.teams.com/termsofuser"
+      "name": "Michael Chaplin",
+      "websiteUrl": "https://www.michaelchaplin.com",
+      "privacyUrl": "https://www.michaelchaplin.com/privacy",
+      "termsOfUseUrl": "https://www.michaelchaplin.com/termsofuser"
     },
     "icons": {
-      "outline": "icon-outline.png",
+      "outline": "icon-color.png",
       "color": "icon-color.png"
     },
     "name": {
-      "short": "TeamsConversationBot",
-      "full": "TeamsConversationBot"
+      "short": "PLMBot",
+      "full": "MSTeamsPLMBot"
     },
     "description": {
-      "short": "TeamsConversationBot",
-      "full": "TeamsConversationBot"
+      "short": "Fetches PLM Info for a user",
+      "full": "Fetches PLM Info for a user"
     },
     "accentColor": "#FFFFFF",
     "bots": [
@@ -44,14 +44,6 @@
               {
                 "title": "MentionMe",
                 "description": "Sends message with @mention of the sender"
-              },
-              {
-                "title": "Show Welcome",
-                "description": "Shows the welcome card"
-              },
-              {
-                "title": "MessageAllMembers",
-                "description": "Send 1 to 1 message to all members of the current conversation"
               }
             ]
           }
