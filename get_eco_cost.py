@@ -11,7 +11,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 # Calculates the total cost of a BOM
 def calcTotalCost(chrome, item, nameOfBOM, itemBOM, *colNames):
@@ -88,8 +88,8 @@ def getECOCost(ecoNum):
     WebDriverWait(chrome, 5).until(EC.text_to_be_present_in_element((By.ID, "lblLogin_AuthenticationMethod_Description"), 'Specify network'))
 
     # Defines and fills in the user credentials
-    username = 'michael chaplin' # Enter usename here in Windows login format ex. 'michael chaplin'
-    password = 'Bubbis456' # Enter password here
+    username = '' # Enter usename here in Windows login format ex. 'michael chaplin'
+    password = '' # Enter password here
     usernameElem = chrome.find_element_by_id("tbxUserName")
     usernameElem.send_keys(username)
     passwordElem = chrome.find_element_by_id("tbxPassword")
@@ -101,7 +101,11 @@ def getECOCost(ecoNum):
     loginButton.click()
 
     # Waits for the user to sign into their account and for the webpage to load, set with a 60 sec timeout
-    WebDriverWait(chrome, 5).until(EC.text_to_be_present_in_element((By.ID, "dg_Results_lnkObjectForm_0"), ecoNum))
+    try:
+        WebDriverWait(chrome, 5).until(EC.text_to_be_present_in_element((By.ID, "dg_Results_lnkObjectForm_0"), ecoNum))
+    except TimeoutException:
+        # The ECO number is not valid
+        return -1
     ecoID = chrome.find_element_by_id("dg_Results_lnkObjectForm_0").get_attribute('href').split('=')[1]
 
     # Click on the 'Affected Items' tab and waits for webpage to switch to the affected item tab of the ECO

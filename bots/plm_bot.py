@@ -59,9 +59,15 @@ class PLMBot(TeamsActivityHandler):
 
         # Run the getECOCost script
         costData = getECOCost(ecoNum)
-        costSummaryCard = cost_results_card(ecoNum, costData)
+        validCost = False if costData == -1 else True         
 
-        # Attach and send the summary card to the user
-        await turn_context.send_activity(
-            MessageFactory.attachment(CardFactory.adaptive_card(costSummaryCard))
-        )
+        if validCost:
+            # Attach and send the summary card to the user
+            costSummaryCard = cost_results_card(ecoNum, costData)
+            await turn_context.send_activity(
+                MessageFactory.attachment(CardFactory.adaptive_card(costSummaryCard))
+            )
+        else:
+            reply_activity = MessageFactory.text("Sorry, the ECO number given is not valid. Please try another number.")
+            await turn_context.send_activity(reply_activity)
+        
