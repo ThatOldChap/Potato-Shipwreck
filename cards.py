@@ -39,7 +39,7 @@ def cost_results_card(ecoNum, costData):
 		affItemResults = FactSet([origItemCost, origBOMCost, propBOMCost])
 
 		# Create a container to segregate each FactSet
-		affItemContainer = Container([affItemResults], separator=True)
+		affItemContainer = Container([affItemPartNum, affItemResults], separator=True)
 		summaryItems.append(affItemContainer)
 	
 	# Create and return the card

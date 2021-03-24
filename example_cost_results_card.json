@@ -10,6 +10,11 @@
         {
             "items": [
                 {
+                    "color": "accent",
+                    "text": "Affected Item: A-0001020",
+                    "type": "TextBlock"
+                },
+                {
                     "facts": [
                         {
                             "title": "Original Item Cost:",
@@ -32,6 +37,11 @@
         },
         {
             "items": [
+                {
+                    "color": "accent",
+                    "text": "Affected Item: A-0002388",
+                    "type": "TextBlock"
+                },
                 {
                     "facts": [
                         {
