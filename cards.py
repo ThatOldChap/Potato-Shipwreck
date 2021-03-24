@@ -30,14 +30,13 @@ def cost_results_card(ecoNum, costData):
 	for affItem in costData:			
 		# Header for the Affected Item
 		affItemPartNum = TextBlock(affItem[0])
-		summaryItems.append(affItemPartNum)
 		
 		# FactSet of the summary data for that Affected Item
 		origItemCost = Fact("Original Item Cost", f'$ {affItem[1]}')
 		origBOMCost = Fact("Original BOM Cost", f'$ {affItem[2]}')
 		propBOMCost = Fact("Proposed BOM Cost", f'$ {affItem[3]}') 
 		affItemResults = FactSet([origItemCost, origBOMCost, propBOMCost])
-		affItemContainer = Container([affItemPartNum, affItemResults])
+		affItemContainer = Container([affItemPartNum, affItemResults], separator=True)
 		summaryItems.append(affItemContainer)
 	
 	# Create and return the card
