@@ -1,7 +1,7 @@
 # PLMBot
 
 from typing import List
-from botbuilder.core import TurnContext, MessageFactory
+from botbuilder.core import TurnContext, MessageFactory, CardFactory
 from botbuilder.core.teams import TeamsActivityHandler
 from get_eco_cost import getECOCost
 from cards import ecoNum_prompt_card, cost_results_card
@@ -22,13 +22,12 @@ class PLMBot(TeamsActivityHandler):
         # TurnContext.remove_recipient_mention(turn_context.activity)
 
         # Strips out any mentions and formats the user's text for parsing
-        # text = turn_context.activity.text.strip().lower()
         text = turn_context.activity.text.strip().upper()
 
         print(f'Formatted text = {text}')
 
         # Basic reply to a user
-        if "hello" in text:
+        if "HELLO" in text:
             await self._cool_reply(turn_context)
             return
 
@@ -59,12 +58,10 @@ class PLMBot(TeamsActivityHandler):
     async def _get_eco_cost(self, turn_context: TurnContext, ecoNum):
 
         # Run the getECOCost script
-        costSummary = getECOCost(ecoNum)
+        costData = getECOCost(ecoNum)
+        costSummaryCard = cost_results_card(ecoNum, costData)
 
-        
-
-        # Sends the tabulated results back to the user
-        reply_activity = MessageFactory.text(costSummary)
-        await turn_context.send_activity(reply_activity)
-
-    def create_cost_summary_card(costSummary):
+        # Attach and send the summary card to the user
+        await turn_context.send_activity(
+            MessageFactory.attachment(CardFactory.adaptive_card(costSummaryCard))
+        )

@@ -127,7 +127,7 @@ def getECOCost(ecoNum):
             affItemList.append(option.text)
 
     print("\nAffected items are: {}\n".format(affItemList))
-    costData =['Affected Item', 'Original Item Cost ($)', 'Original BOM Cost ($)', 'Proposed BOM Cost ($)']]
+    costData =[]
 
     # Loop through each affected item to gather the necessary data
     for item in affItemList:

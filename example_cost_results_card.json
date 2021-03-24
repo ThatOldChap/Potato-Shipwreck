@@ -5,7 +5,8 @@
             "size": "large",
             "text": "ECO-0003243 Results:",
             "type": "TextBlock",
-            "weight": "bolder"
+            "weight": "bolder",
+            "color": "accent"
         },
         {
             "items": [

@@ -9,7 +9,7 @@ from pyadaptivecards.container import Container, FactSet
 def ecoNum_prompt_card():
 
 	# Body fields of the card
-	promptTitle = TextBlock("ECO Proposed BOM Cost Rollup", weight=FontWeight.BOLDER, size=FontSize.LARGE)
+	promptTitle = TextBlock("ECO Proposed BOM Cost Rollup", weight=FontWeight.BOLDER, size=FontSize.LARGE, color=Colors.ACCENT)
 	prompt = TextBlock("Please enter an ECO number")
 	ecoNum = Text('ecoNum', placeholder="ECO-XXXXXXX")
 
@@ -45,4 +45,4 @@ def cost_results_card(ecoNum, costData):
 	# Create and return the card
 	card = AdaptiveCard(body=summaryItems)
 	print('Created cost_results_card')
-	return card
+	return card.to_dict()
