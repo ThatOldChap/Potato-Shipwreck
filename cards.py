@@ -2,13 +2,14 @@ from pyadaptivecards.card import AdaptiveCard
 from pyadaptivecards.components import TextBlock, Fact
 from pyadaptivecards.inputs import Text
 from pyadaptivecards.actions import Submit
+from pyadaptivecards.options import Colors, FontWeight, FontSize
 from pyadaptivecards.container import Container, FactSet
 
 # ECO Proposed Cost Rollup Prompt Card
 def ecoNum_prompt_card():
 
 	# Body fields of the card
-	promptTitle = TextBlock("ECO Proposed BOM Cost Rollup", weight="bolder", size="large")
+	promptTitle = TextBlock("ECO Proposed BOM Cost Rollup", weight=FontWeight.BOLDER, size=FontSize.LARGE)
 	prompt = TextBlock("Please enter an ECO number")
 	ecoNum = Text('ecoNum', placeholder="ECO-XXXXXXX")
 
@@ -24,16 +25,18 @@ def ecoNum_prompt_card():
 def cost_results_card(ecoNum, costData):
 
 	# Header field of the card
-	resultTitle = TextBlock(f'{ecoNum} Results:', weight="bolder", size="large")
+	resultTitle = TextBlock(f'{ecoNum} Results:', weight=FontWeight.BOLDER, size=FontSize.LARGE)
 	summaryItems = [resultTitle]
 
-	for affItem in costData:		
+	for affItem in costData:
+		# TextBlock for the Affected Item header
+		affItemPartNum = TextBlock(f'Affected Item: {affItem[0]}', color=Colors.ACCENT)
+		
 		# FactSet of the summary data for that Affected Item
-		affItemPartNum = Fact("Affected Item:", affItem[0])
 		origItemCost = Fact("Original Item Cost:", f'$ {affItem[1]}')
 		origBOMCost = Fact("Original BOM Cost:", f'$ {affItem[2]}')
 		propBOMCost = Fact("Proposed BOM Cost:", f'$ {affItem[3]}') 
-		affItemResults = FactSet([affItemPartNum, origItemCost, origBOMCost, propBOMCost])
+		affItemResults = FactSet([origItemCost, origBOMCost, propBOMCost])
 
 		# Create a container to segregate each FactSet
 		affItemContainer = Container([affItemResults], separator=True)

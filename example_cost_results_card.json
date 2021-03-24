@@ -12,10 +12,6 @@
                 {
                     "facts": [
                         {
-                            "title": "Affected Item:",
-                            "value": "A-0001020"
-                        },
-                        {
                             "title": "Original Item Cost:",
                             "value": "$ 100"
                         },
@@ -38,10 +34,6 @@
             "items": [
                 {
                     "facts": [
-                        {
-                            "title": "Affected Item:",
-                            "value": "A-0002388"
-                        },
                         {
                             "title": "Original Item Cost:",
                             "value": "$ 1000"
