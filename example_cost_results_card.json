@@ -1,0 +1,73 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "body": [
+        {
+            "size": "large",
+            "text": "ECO-0003243",
+            "type": "TextBlock",
+            "weight": "bolder"
+        },
+        {
+            "text": "A-0001020",
+            "type": "TextBlock"
+        },
+        {
+            "items": [
+                {
+                    "text": "A-0001020",
+                    "type": "TextBlock"
+                },
+                {
+                    "facts": [
+                        {
+                            "title": "Original Item Cost",
+                            "value": "100"
+                        },
+                        {
+                            "title": "Original BOM Cost",
+                            "value": "50"
+                        },
+                        {
+                            "title": "Proposed BOM Cost",
+                            "value": "250"
+                        }
+                    ],
+                    "type": "FactSet"
+                }
+            ],
+            "type": "Container"
+        },
+        {
+            "text": "A-0002388",
+            "type": "TextBlock"
+        },
+        {
+            "items": [
+                {
+                    "text": "A-0002388",
+                    "type": "TextBlock"
+                },
+                {
+                    "facts": [
+                        {
+                            "title": "Original Item Cost",
+                            "value": "1000"
+                        },
+                        {
+                            "title": "Original BOM Cost",
+                            "value": "900"
+                        },
+                        {
+                            "title": "Proposed BOM Cost",
+                            "value": "1320"
+                        }
+                    ],
+                    "type": "FactSet"
+                }
+            ],
+            "type": "Container"
+        }
+    ],
+    "type": "AdaptiveCard",
+    "version": "1.1"
+}

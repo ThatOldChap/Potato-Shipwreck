@@ -4,6 +4,7 @@ from typing import List
 from botbuilder.core import TurnContext, MessageFactory
 from botbuilder.core.teams import TeamsActivityHandler
 from get_eco_cost import getECOCost
+from cards import ecoNum_prompt_card, cost_results_card
 
 # PLMBot class for handling the Teams messages from the Users
 class PLMBot(TeamsActivityHandler):
@@ -60,6 +61,10 @@ class PLMBot(TeamsActivityHandler):
         # Run the getECOCost script
         costSummary = getECOCost(ecoNum)
 
+        
+
         # Sends the tabulated results back to the user
         reply_activity = MessageFactory.text(costSummary)
         await turn_context.send_activity(reply_activity)
+
+    def create_cost_summary_card(costSummary):
