@@ -3,28 +3,28 @@
     "body": [
         {
             "size": "large",
-            "text": "ECO-0003243",
+            "text": "ECO-0003243 Results:",
             "type": "TextBlock",
             "weight": "bolder"
         },
         {
             "items": [
                 {
-                    "text": "A-0001020",
-                    "type": "TextBlock"
-                },
-                {
                     "facts": [
                         {
-                            "title": "Original Item Cost",
+                            "title": "Affected Item:",
+                            "value": "A-0001020"
+                        },
+                        {
+                            "title": "Original Item Cost:",
                             "value": "$ 100"
                         },
                         {
-                            "title": "Original BOM Cost",
+                            "title": "Original BOM Cost:",
                             "value": "$ 50"
                         },
                         {
-                            "title": "Proposed BOM Cost",
+                            "title": "Proposed BOM Cost:",
                             "value": "$ 250"
                         }
                     ],
@@ -37,21 +37,21 @@
         {
             "items": [
                 {
-                    "text": "A-0002388",
-                    "type": "TextBlock"
-                },
-                {
                     "facts": [
                         {
-                            "title": "Original Item Cost",
+                            "title": "Affected Item:",
+                            "value": "A-0002388"
+                        },
+                        {
+                            "title": "Original Item Cost:",
                             "value": "$ 1000"
                         },
                         {
-                            "title": "Original BOM Cost",
+                            "title": "Original BOM Cost:",
                             "value": "$ 900"
                         },
                         {
-                            "title": "Proposed BOM Cost",
+                            "title": "Proposed BOM Cost:",
                             "value": "$ 1320"
                         }
                     ],

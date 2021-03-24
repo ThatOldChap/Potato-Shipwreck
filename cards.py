@@ -24,19 +24,19 @@ def ecoNum_prompt_card():
 def cost_results_card(ecoNum, costData):
 
 	# Header field of the card
-	resultTitle = TextBlock(ecoNum, weight="bolder", size="large")
+	resultTitle = TextBlock(f'{ecoNum} Results:', weight="bolder", size="large")
 	summaryItems = [resultTitle]
 
-	for affItem in costData:			
-		# Header for the Affected Item
-		affItemPartNum = TextBlock(affItem[0])
-		
+	for affItem in costData:		
 		# FactSet of the summary data for that Affected Item
-		origItemCost = Fact("Original Item Cost", f'$ {affItem[1]}')
-		origBOMCost = Fact("Original BOM Cost", f'$ {affItem[2]}')
-		propBOMCost = Fact("Proposed BOM Cost", f'$ {affItem[3]}') 
-		affItemResults = FactSet([origItemCost, origBOMCost, propBOMCost])
-		affItemContainer = Container([affItemPartNum, affItemResults], separator=True)
+		affItemPartNum = Fact("Affected Item:", affItem[0])
+		origItemCost = Fact("Original Item Cost:", f'$ {affItem[1]}')
+		origBOMCost = Fact("Original BOM Cost:", f'$ {affItem[2]}')
+		propBOMCost = Fact("Proposed BOM Cost:", f'$ {affItem[3]}') 
+		affItemResults = FactSet([affItemPartNum, origItemCost, origBOMCost, propBOMCost])
+
+		# Create a container to segregate each FactSet
+		affItemContainer = Container([affItemResults], separator=True)
 		summaryItems.append(affItemContainer)
 	
 	# Create and return the card
