@@ -24,8 +24,6 @@ class PLMBot(TeamsActivityHandler):
         # Strips out any mentions and formats the user's text for parsing
         text = turn_context.activity.text.strip().upper()
 
-        print(f'Formatted text = {text}')
-
         # Basic reply to a user
         if "HELLO" in text:
             await self._cool_reply(turn_context)
@@ -36,7 +34,7 @@ class PLMBot(TeamsActivityHandler):
 
             # Get the ECO number the user is requesting
             ecoNum = text.split(' ')[1]
-            print(f'ecoNum = {ecoNum}')
+            print(f'Processing request for ECO Proposed BOM Cost Rollup for {ecoNum}')
             await self._get_eco_cost(turn_context, ecoNum)
             return
         
@@ -59,7 +57,16 @@ class PLMBot(TeamsActivityHandler):
 
         # Run the getECOCost script
         costData = getECOCost(ecoNum)
-        validCost = False if costData == -1 else True         
+        
+        # Check the validity of the costData
+        if type(costData) == list and len(costData) > 0:
+            validCost = True
+        else:            
+            validCost = False
+            if costData == -1:
+                errorMsg = f'Sorry, {ecoNum} is not a valid ECO number. Please try another number.'
+            elif costData == -2:
+                errorMsg = f'Sorry, {ecoNum} has no valid affected items.'   
 
         if validCost:
             # Attach and send the summary card to the user
@@ -68,6 +75,6 @@ class PLMBot(TeamsActivityHandler):
                 MessageFactory.attachment(CardFactory.adaptive_card(costSummaryCard))
             )
         else:
-            reply_activity = MessageFactory.text("Sorry, the ECO number given is not valid. Please try another number.")
+            reply_activity = MessageFactory.text(errorMsg)
             await turn_context.send_activity(reply_activity)
         

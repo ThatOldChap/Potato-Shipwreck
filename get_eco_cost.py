@@ -31,10 +31,15 @@ def calcTotalCost(chrome, item, nameOfBOM, itemBOM, *colNames):
 	# Calculate and increment the extended cost of each BOM line item
     totalBOMCost = 0
     for row in range(1, numRows):
+        # Finds the cost and quantity elements from the BOM table
         qty = chrome.find_element_by_css_selector(f'#dg{nameOfBOM}BOM > tbody > tr:nth-child({row + 1}) > td:nth-child({qtyCol + 1})').text
-        cost = chrome.find_element_by_css_selector(f'#dg{nameOfBOM}BOM > tbody > tr:nth-child({row + 1}) > td:nth-child({costCol + 1})').text         
-        if not cost == '' and not cost == ' ':
-            totalBOMCost += (float(qty) * float(cost))
+        cost = chrome.find_element_by_css_selector(f'#dg{nameOfBOM}BOM > tbody > tr:nth-child({row + 1}) > td:nth-child({costCol + 1})').text
+
+        # Check to make sure there is a valid number and not a string before incrementing the BOM cost
+        try:
+            totalBOMCost += (float(qty) * float(cost))   
+        except ValueError:
+            continue
 	
 	# Format the final cost of the BOM
     totalBOMCost = round(totalBOMCost, 2)    
@@ -105,6 +110,7 @@ def getECOCost(ecoNum):
         WebDriverWait(chrome, 5).until(EC.text_to_be_present_in_element((By.ID, "dg_Results_lnkObjectForm_0"), ecoNum))
     except TimeoutException:
         # The ECO number is not valid
+        chrome.quit()
         return -1
     ecoID = chrome.find_element_by_id("dg_Results_lnkObjectForm_0").get_attribute('href').split('=')[1]
 
@@ -126,11 +132,17 @@ def getECOCost(ecoNum):
     affItemsOptions = affItemSelect.options
     affItemList = []
     for option in affItemsOptions:
-        if not option.text[0] == 'D':
-            # Ignores 'D' type items 
+        itemType = option.text[0]
+        if itemType == 'A' or itemType == 'C' or itemType == 'E' or itemType == 'H' or itemType == 'M' or itemType == 'O' or itemType == 'S':
+            # Only processes valid item types
             affItemList.append(option.text)
 
     print("\nAffected items are: {}\n".format(affItemList))
+    if affItemList == []:
+        # No valid affected items
+        chrome.quit()
+        return -2
+
     costData =[]
 
     # Loop through each affected item to gather the necessary data
@@ -144,8 +156,12 @@ def getECOCost(ecoNum):
         affItemSelect.select_by_visible_text(item)
         WebDriverWait(chrome, 5).until(EC.text_to_be_present_in_element((By.ID, "lblParentItem_PN"), item))
 
-        # Get the original design costo
-        originalDesignCost = round(float(chrome.find_element_by_id("lblParentItem_OldValue").text), 2)
+        # Get the original design cost
+        try:
+            originalDesignCost = round(float(chrome.find_element_by_id("lblParentItem_OldValue").text), 2)
+        except ValueError:
+            # Sets a default value of $0 if the originalDesignCost is blank
+            originalDesignCost = 0
         
         # Finds the original BOM and skips over items like E and M parts that don't have a BOM
         try:

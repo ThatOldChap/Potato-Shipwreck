@@ -44,5 +44,5 @@ def cost_results_card(ecoNum, costData):
 	
 	# Create and return the card
 	card = AdaptiveCard(body=summaryItems)
-	print('Created cost_results_card')
+	print(f'Created cost_results_card for {ecoNum}')
 	return card.to_dict()
